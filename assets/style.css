@@ -1,0 +1,240 @@
+/* UCL Motorrad – 1:1-Nachbau der bisherigen Wix-Seite
+   Desktop: 980 px breite Spalte, Positionen wie im Original.
+   Handy (bis 760 px): gestapelte Ansicht wie die Wix-Mobilversion. */
+
+/* Überschriftenschrift: Copperplate Gothic Bold (wie im Original), sonst Cinzel als freie Ersatzschrift */
+@font-face {
+  font-family: "UCL Copperplate";
+  src: local("Copperplate Gothic Bold"), local("CopperplateGothic-Bold"), local("Copperplate Bold"), local("Copperplate-Bold");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "UCL Copperplate Ersatz";
+  src: url("cinzel-latin-700-normal.woff2") format("woff2");
+  font-weight: 400;
+  size-adjust: 102%;
+  font-display: swap;
+}
+
+:root {
+  --gelb: #F5D000;
+  --box: #353535;
+  --cg: "UCL Copperplate", "UCL Copperplate Ersatz", "Copperplate Gothic Bold", Copperplate, serif;
+  --ta: Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: #000 url("muster.png") repeat;
+  color: #fff;
+  font: 14px/1.3 var(--ta);
+  -webkit-text-size-adjust: 100%;
+}
+p, h1, h2, h3, h4, h5, h6, ul { margin: 0; font-weight: normal; }
+a { color: inherit; }
+img { display: block; }
+
+/* Textstile aus dem Original */
+.cg24 { font-family: var(--cg); font-size: 24px; line-height: 26.4px; color: var(--gelb); }
+.cg22 { font-family: var(--cg); font-size: 22px; line-height: 28.6px; color: var(--gelb); }
+.cg14 { font-family: var(--cg); font-size: 14px; line-height: 18.2px; color: var(--gelb); }
+.t14 p, .t14 li, p.t14 { font-size: 14px; line-height: 18.2px; }
+.t16 p, p.t16 { font-size: 16px; line-height: 20.8px; }
+.t14w21 p { font-size: 14px; line-height: 21px; }
+.leer10 { font: 10px/normal Arial, sans-serif; }
+.rt ul { padding-left: 23px; }
+.rt a { color: #fff; text-decoration: underline; }
+.fett { font-weight: bold; }
+
+/* Grundgerüst */
+.spalte { width: 980px; margin: 0 auto; position: relative; }
+.site-header { height: 164px; }
+.site-header .spalte { height: 164px; background: #000; }
+@media (min-width: 980px) {
+  .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; }
+  main { padding-top: 164px; }
+}
+.titel { position: absolute; left: 10px; top: 22px; width: 790px; }
+.titel a { text-decoration: none; color: var(--gelb); }
+.titel .t1 { font-family: var(--cg); font-size: 43px; line-height: 47.3px; color: var(--gelb); }
+.titel .t2 { font-family: var(--cg); font-size: 19px; line-height: 20.9px; color: var(--gelb); white-space: pre; }
+
+/* Menü mit Glanzeffekt */
+.menu { position: absolute; left: 0; top: 119px; width: 980px; height: 45px; }
+.menu ul {
+  list-style: none; margin: 0; padding: 0; display: flex; height: 45px;
+  background: #000; border-radius: 10px 10px 0 0; box-shadow: rgba(0, 0, 0, .6) 0 1px 4px 0; position: relative;
+}
+.menu ul::before, .menu li::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,.34) 0, rgba(255,255,255,.31) 3px, rgba(255,255,255,.24) 8px,
+    rgba(255,255,255,.19) 14px, rgba(255,255,255,.135) 20px, rgba(255,255,255,.13) 22px,
+    rgba(0,0,0,.07) 22.5px, rgba(0,0,0,.035) 34px, rgba(0,0,0,.015) 45px);
+  border-radius: inherit;
+}
+.menu li { position: relative; width: 140px; height: 45px; background: #000; transition: background-color .4s ease; }
+.menu li + li::before { left: 1px; }
+.menu li:first-child { border-radius: 10px 0 0 0; }
+.menu li:last-child { border-radius: 0 10px 0 0; }
+.menu a {
+  position: relative; z-index: 1; display: block; height: 45px; line-height: 45px; text-align: center;
+  font-family: var(--cg); font-size: 10px; color: #fff; text-decoration: none; transition: color .4s ease;
+}
+.menu li:hover { background: #353535; }
+.menu li.aktiv { background: var(--gelb); }
+.menu li.aktiv a { color: #000; }
+
+/* Seiteninhalt */
+.seite { background: rgba(0, 0, 0, .7); position: relative; }
+.buehne { position: relative; }
+.abs { position: absolute; left: var(--x); top: var(--y); width: var(--w); }
+.abs.h { height: var(--h); }
+.linie { border-top: 4px solid var(--gelb); height: 5px; }
+.vlinie { border-left: 2px solid var(--gelb); }
+.kasten { background: var(--box); border-radius: 4px; }
+.mitte { text-align: center; }
+.willkommen { font-family: var(--cg); font-size: 48px; line-height: 52.8px; color: var(--gelb); text-align: center; }
+
+/* Einblend-Animation wie im Original */
+@media (prefers-reduced-motion: no-preference) {
+  .fx { animation: einblenden 1.2s ease .15s both; }
+  @keyframes einblenden { from { opacity: 0; } to { opacity: 1; } }
+}
+
+/* Diashow */
+.diashow { overflow: hidden; height: 379px; }
+.diashow .spur { display: flex; height: 100%; transition: transform .8s ease; }
+.diashow .spur img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; }
+.diashow button {
+  position: absolute; top: calc(50% - 19.5px); width: 23px; height: 39px; padding: 0; border: 0; background: none; cursor: pointer;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,.6));
+}
+.diashow button svg { width: 23px; height: 39px; fill: var(--gelb); display: block; }
+.diashow .zurueck { left: 23px; }
+.diashow .zurueck svg { transform: scaleX(-1); }
+.diashow .weiter { right: 23px; }
+
+/* Social-Media-Leiste */
+.social { display: flex; gap: 10px; }
+.social a { width: 39px; height: 39px; display: flex; align-items: center; justify-content: center; }
+.social .wa { background: #25D366; border-radius: 3px; }
+.social .wa svg { width: 27px; height: 27px; fill: #fff; }
+.social .rund { background: #949494; border-radius: 50%; }
+.social .rund svg { width: 23px; height: 23px; fill: #0f0f0f; }
+
+/* Karte (wird erst nach Klick geladen) */
+.karte { background: #e5e3df; position: relative; overflow: hidden; }
+.karte iframe { border: 0; width: 100%; height: 100%; display: block; }
+.karte .laden {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  text-align: center; padding: 12px; color: #333; font: 13px/1.35 var(--ta); cursor: pointer; border: 0; width: 100%;
+  background: repeating-linear-gradient(45deg, #e9e7e3 0 12px, #e2dfda 12px 24px);
+}
+.karte .laden strong { font-size: 14px; color: #000; background: #fff; padding: 7px 12px; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+
+/* Preisliste Wartung */
+.preis { box-shadow: #000 0 1px 4px 0; }
+.preis .name { position: absolute; left: 14px; top: 14px; width: 281px; font-size: 14px; line-height: 18.2px; }
+.preis .betrag {
+  position: absolute; left: 302px; top: 12px; width: 116px; height: 25px; background: var(--gelb); border-radius: 0 6px;
+  color: #000; font-size: 14px; line-height: 25px; text-align: center;
+}
+.bildrahmen { background: var(--gelb); border: 1px solid var(--gelb); border-radius: 5px; overflow: hidden; }
+.bildrahmen img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Kleinanzeigen-Knopf */
+.knopf-ka { display: block; background: var(--gelb); border-radius: 12px; color: #000; text-decoration: none; }
+.knopf-ka span { position: absolute; left: 53px; top: 29px; font-family: var(--cg); font-size: 24px; line-height: 27px; letter-spacing: 6px; white-space: nowrap; }
+.knopf-ka svg { position: absolute; left: 391px; top: 24px; width: 37px; height: 37px; }
+
+/* Logos Zubehör */
+.logo img { width: 100%; height: 100%; object-fit: cover; }
+.logo svg { width: 100%; height: 100%; display: block; }
+
+/* Kontaktformular */
+.formular input, .formular textarea {
+  position: absolute; background: #000; color: #fff; border: 1px solid var(--gelb); border-radius: 3px;
+  font: 14px var(--ta); padding: 3px 3px 3px 12px; margin: 0;
+}
+.formular textarea { resize: none; padding-top: 6px; }
+.formular ::placeholder { color: #fff; opacity: .55; }
+.formular button {
+  position: absolute; background: var(--gelb); color: #000; border: 0; border-radius: 5px; font: 13.33px Arial, sans-serif; cursor: pointer;
+}
+.formular button:hover { background: #fcefa8; }
+.formular .meldung { font-size: 23px; color: var(--gelb); }
+.formular .meldung[hidden] { display: none; }
+.verstecken { position: absolute; left: -9999px; }
+
+/* Rechtstexte (Fließlayout) */
+.fliess { padding: 31px 0 22px; }
+.fliess .kopf { margin: 0 10px; }
+.fliess .linie { margin: 13.6px 10px 0; width: 960px; }
+
+/* Fußzeile */
+.site-footer .spalte { background: var(--gelb); height: 61px; }
+.site-footer a, .site-footer p { color: rgb(82, 69, 0); font: 12px/normal var(--ta); text-decoration: none; }
+.site-footer .f1 { position: absolute; top: 10px; }
+.site-footer .copy { position: absolute; left: 10px; top: 35px; }
+
+/* Mobiles Menü */
+.burger { display: none; }
+.mobilmenue { display: none; }
+
+/* ---------- Handy-Ansicht ---------- */
+@media (max-width: 760px) {
+  body { font-size: 14px; }
+  .spalte { width: auto; }
+  .site-header .spalte { height: auto; min-height: 112px; padding: 25px 80px 12px 20px; }
+  .site-header { height: auto; }
+  .titel { position: static; width: auto; }
+  .titel .t1 { font-size: 23px; line-height: 25.3px; }
+  .titel .t2 { font-size: 14px; line-height: 15.4px; white-space: normal; }
+  .menu { display: none; }
+  .burger {
+    display: block; position: absolute; right: 20px; top: 20px; width: 50px; height: 50px; background: #959595;
+    border: 1px solid #000; border-radius: 4px; cursor: pointer; padding: 0;
+  }
+  .burger span { display: block; width: 26px; height: 2px; background: #000; margin: 6px auto; }
+  .mobilmenue.offen { display: block; position: fixed; inset: 0; z-index: 100; background: rgba(255, 255, 255, .6); }
+  .mobilmenue ul { list-style: none; margin: 0; padding: 0; background: #959595; }
+  .mobilmenue li { border-bottom: 1px solid #000; }
+  .mobilmenue a { display: block; text-align: center; font: 12px/44px var(--ta); color: #000; text-decoration: none; }
+  .mobilmenue li.aktiv a { color: var(--gelb); }
+  .mobilmenue .zu { display: block; width: 100%; background: #959595; border: 0; font: 22px/40px var(--ta); color: #000; cursor: pointer; }
+
+  .buehne { height: auto !important; padding: 25px 20px 20px; display: flex; flex-direction: column; gap: 16px; }
+  .abs, .abs.h { position: relative; left: auto; top: auto; width: auto; height: auto; }
+  .diashow { height: auto; aspect-ratio: 280 / 152; }
+  .diashow .spur img { height: 100%; }
+  .willkommen { font-size: 33px; line-height: 36.3px; }
+  .vlinie { display: none; }
+  .kasten { padding: 10px; }
+  .kasten.box-start .karte { height: 240px; margin-top: 16px; }
+  .karte { min-height: 240px; }
+  .ohne-mobil { display: none; }
+  .preisliste { display: flex; flex-direction: column; gap: 6px; }
+  .preis { position: relative; min-height: 54px; }
+  .preis .name { position: static; padding: 12px 140px 12px 12px; width: auto; }
+  .preis .betrag { left: auto; right: 10px; top: 12px; }
+  .bildrahmen { aspect-ratio: 960 / 244; }
+  .knopf-ka { height: 70px; position: relative; }
+  .knopf-ka span { left: 18px; top: 22px; font-size: 18px; letter-spacing: 3px; }
+  .knopf-ka svg { left: auto; right: 14px; top: 18px; width: 32px; height: 32px; }
+  .logo { height: auto !important; }
+  .logo img, .logo svg { height: auto; max-width: 100%; }
+  .formular { position: relative; }
+  .formular input, .formular textarea, .formular button { position: static; width: 100% !important; height: 40px; margin-bottom: 8px; }
+  .formular textarea { height: 120px !important; }
+  .formular .meldung { position: static; font-size: 18px; }
+  .fliess .linie { width: auto; }
+  .fliess .rt { margin: 16px 20px 0 !important; width: auto !important; max-width: none !important; }
+  .fliess .kopf, .fliess .linie { margin-left: 20px; margin-right: 20px; }
+  .rt { overflow-wrap: anywhere; }
+  .mk { background: var(--box); border-radius: 4px; padding: 10px; }
+  .fliess { padding: 25px 0 20px; }
+  .site-footer .spalte { height: auto; padding: 10px 20px; }
+  .site-footer .f1, .site-footer .copy { position: static; display: block; margin: 4px 0; }
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fahrzeuge | UCL Motorrad | Markdorf</title>
+<meta name="description" content="Fahrzeugangebote">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="spalte">
+    <div class="titel">
+      <p class="t1"><a href="index.html">UCL Motorrad</a></p>
+      <p class="t2">Die Motorradwerkstatt für alle Krafträder  aller Marken</p>
+    </div>
+    <nav class="menu" aria-label="Hauptmenü"><ul><li><a href="index.html">START</a></li><li><a href="kontakt.html">KONTAKT</a></li><li><a href="wartung.html">WARTUNG</a></li><li class="aktiv"><a href="fahrzeuge.html">FAHRZEUGE</a></li><li><a href="zubehoer.html">ZUBEHÖR</a></li><li><a href="reparaturen.html">REPARATUREN</a></li><li><a href="standort.html">STANDORT</a></li></ul></nav>
+    <button class="burger" type="button" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobilmenue" id="mobilmenue">
+  <ul><li><a href="index.html">START</a></li><li><a href="kontakt.html">KONTAKT</a></li><li><a href="wartung.html">WARTUNG</a></li><li class="aktiv"><a href="fahrzeuge.html">FAHRZEUGE</a></li><li><a href="zubehoer.html">ZUBEHÖR</a></li><li><a href="reparaturen.html">REPARATUREN</a></li><li><a href="standort.html">STANDORT</a></li></ul>
+  <button class="zu" type="button" aria-label="Menü schließen">×</button>
+</div>
+<main>
+  <div class="spalte seite">
+<div class="buehne" style="height:539px">
+  <h2 class="abs cg24" style="--x:10px;--y:31px;--w:871px">Fahrzeugverkauf</h2>
+  <div class="abs linie" style="--x:10px;--y:71px;--w:960px"></div>
+  <div class="abs h kasten fx ohne-mobil" style="--x:10px;--y:96px;--w:960px;--h:40px"></div>
+  <p class="abs t14 fx mk" style="--x:20px;--y:107px;--w:898px">Hier findest Du aktuelle Fahrzeugangebote:</p>
+  <a class="abs h knopf-ka fx" style="--x:208px;--y:161px;--w:481px;--h:85px" href="https://www.kleinanzeigen.de/s-bestandsliste.html?userId=131719892" target="_blank" rel="noopener"><span>Kleinanzeigen.de</span><svg viewBox="0 0 60 60" aria-hidden="true"><path d="M46.5 28.9 20.6 3c-.6-.6-1.6-.6-2.2 0l-4.8 4.8c-.6.6-.6 1.6 0 2.2l19.8 20-19.9 19.9c-.6.6-.6 1.6 0 2.2l4.8 4.8c.6.6 1.6.6 2.2 0l21-21 4.8-4.8c.8-.6.8-1.6.2-2.2z"/></svg></a>
+  <h2 class="abs cg24" style="--x:13px;--y:319px;--w:871px">Fahrzeugankauf</h2>
+  <div class="abs linie" style="--x:13px;--y:359px;--w:960px"></div>
+  <div class="abs h kasten fx ohne-mobil" style="--x:10px;--y:382px;--w:960px;--h:93px"></div>
+  <div class="abs rt t14 fx mk" style="--x:20px;--y:393px;--w:898px">
+    <p>Gerne unterbreite ich dir ein indivduelles Angebot für dein Fahrzeug. Bei Interesse, können wir einen Termin zur Fahrzeugbewertung vereinbahren.</p><p>&nbsp;</p>
+    <p>Alternativ nehme ich auch gerne dein Fahrzeug bei Kauf eines meiner angebotenen Modelle in Zahlung.</p><p>&nbsp;</p>
+  </div>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="spalte">
+    <a class="f1" style="left:14px" href="cookies.html">Cookies</a>
+    <a class="f1" style="left:76px" href="impressum.html">Impressum</a>
+    <a class="f1" style="left:159px" href="datenschutz.html">Datenschutz</a>
+    <p class="copy">© 2023 UCL Motorrad</p>
+  </div>
+</footer>
+<script>
+(function(){
+  // Mobiles Menü
+  var b=document.querySelector('.burger'), m=document.getElementById('mobilmenue');
+  if(b&&m){b.addEventListener('click',function(){m.classList.add('offen');b.setAttribute('aria-expanded','true')});
+    m.addEventListener('click',function(e){if(e.target===m||e.target.classList.contains('zu')){m.classList.remove('offen');b.setAttribute('aria-expanded','false')}});}
+  // Diashow
+  document.querySelectorAll('.diashow').forEach(function(d){
+    var spur=d.querySelector('.spur'), n=spur.children.length, i=0, t;
+    function zeige(k){i=(k+n)%n; spur.style.transform='translateX('+(-100*i)+'%)';}
+    function auto(){clearInterval(t); t=setInterval(function(){zeige(i+1)},4000);}
+    d.querySelector('.weiter').addEventListener('click',function(){zeige(i+1);auto()});
+    d.querySelector('.zurueck').addEventListener('click',function(){zeige(i-1);auto()});
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) auto();
+  });
+  // Karte erst nach Klick laden
+  document.querySelectorAll('.karte .laden').forEach(function(btn){
+    btn.addEventListener('click',function(){var f=document.createElement('iframe');f.src=btn.dataset.karte;f.title='Karte: UCL-Motorrad, Bergheimer Str. 26, Markdorf';f.loading='lazy';btn.parentNode.appendChild(f);btn.remove();});
+  });
+  // Kontaktformular (Netlify Forms)
+  var form=document.querySelector('form.formular');
+  if(form){form.addEventListener('submit',function(e){e.preventDefault();
+    var ok=form.querySelector('.meldung.ok'), err=form.querySelector('.meldung.fehler');
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()})
+      .then(function(r){if(!r.ok)throw 0; form.reset(); err.hidden=true; ok.hidden=false;})
+      .catch(function(){ok.hidden=true; err.hidden=false;});
+  });}
+})();
+</script>
+</body>
+</html>

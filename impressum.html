@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impressum | UCL Motorrad | Markdorf</title>
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="spalte">
+    <div class="titel">
+      <p class="t1"><a href="index.html">UCL Motorrad</a></p>
+      <p class="t2">Die Motorradwerkstatt für alle Krafträder  aller Marken</p>
+    </div>
+    <nav class="menu" aria-label="Hauptmenü"><ul><li><a href="index.html">START</a></li><li><a href="kontakt.html">KONTAKT</a></li><li><a href="wartung.html">WARTUNG</a></li><li><a href="fahrzeuge.html">FAHRZEUGE</a></li><li><a href="zubehoer.html">ZUBEHÖR</a></li><li><a href="reparaturen.html">REPARATUREN</a></li><li><a href="standort.html">STANDORT</a></li></ul></nav>
+    <button class="burger" type="button" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobilmenue" id="mobilmenue">
+  <ul><li><a href="index.html">START</a></li><li><a href="kontakt.html">KONTAKT</a></li><li><a href="wartung.html">WARTUNG</a></li><li><a href="fahrzeuge.html">FAHRZEUGE</a></li><li><a href="zubehoer.html">ZUBEHÖR</a></li><li><a href="reparaturen.html">REPARATUREN</a></li><li><a href="standort.html">STANDORT</a></li></ul>
+  <button class="zu" type="button" aria-label="Menü schließen">×</button>
+</div>
+<main>
+  <div class="spalte seite">
+<div class="buehne fliess" style="padding-bottom:22px">
+  <h1 class="cg24 kopf">IMPRESSUM</h1>
+  <div class="linie"></div>
+  <div class="rt t14" style="margin:5px 0 0 10px;width:612px;max-width:calc(100% - 10px)"><p>Angaben gemäß § 5 DDG</p><p>&nbsp;</p>
+<p>Ulf Lang<br>UCL Motorrad<br>Bergheimer Str. 26<br>88677 Markdorf</p><p>&nbsp;</p>
+<p>Kontakt:<br>Telefon: +49 (0)179 525 1708<br>E-Mail: info@ucl-motorrad.de</p><p>&nbsp;</p>
+<p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br>DE360260231</p><p>&nbsp;</p>
+<p>Zuständige Kammer:<br>Handwerkskammer Ulm</p><p>&nbsp;</p>
+<p>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:<br>Ulf Lang, Bergheimer Str. 26, 88677 Markdorf</p><p>&nbsp;</p>
+<p><span class="fett">Haftung für Inhalte</span></p>
+<p>Die Inhalte dieser Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann ich jedoch keine Gewähr übernehmen. Sobald mir Rechtsverletzungen bekannt werden, entferne ich die betreffenden Inhalte umgehend.</p><p>&nbsp;</p>
+<p><span class="fett">Haftung für Links</span></p>
+<p>Diese Website enthält Links zu externen Websites Dritter (zum Beispiel Kleinanzeigen, Instagram, Facebook, WhatsApp, Google Maps und Herstellerseiten), auf deren Inhalte ich keinen Einfluss habe. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich. Sobald mir Rechtsverletzungen bekannt werden, entferne ich die betreffenden Links umgehend.</p><p>&nbsp;</p>
+<p><span class="fett">Urheberrecht</span></p>
+<p>Die von mir erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen meiner schriftlichen Zustimmung. Herstellerlogos sind Marken der jeweiligen Inhaber. Die Fotos auf der Startseite und der Seite „Wartung“ stammen von Unsplash (<a href="https://unsplash.com/de/lizenz" target="_blank" rel="noopener">Unsplash-Lizenz</a>).</p><p>&nbsp;</p>
+<p><span class="fett">Werbung</span></p>
+<p>Der Nutzung der im Impressum veröffentlichten Kontaktdaten zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit widersprochen.</p></div>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="spalte">
+    <a class="f1" style="left:14px" href="cookies.html">Cookies</a>
+    <a class="f1" style="left:76px" href="impressum.html">Impressum</a>
+    <a class="f1" style="left:159px" href="datenschutz.html">Datenschutz</a>
+    <p class="copy">© 2023 UCL Motorrad</p>
+  </div>
+</footer>
+<script>
+(function(){
+  // Mobiles Menü
+  var b=document.querySelector('.burger'), m=document.getElementById('mobilmenue');
+  if(b&&m){b.addEventListener('click',function(){m.classList.add('offen');b.setAttribute('aria-expanded','true')});
+    m.addEventListener('click',function(e){if(e.target===m||e.target.classList.contains('zu')){m.classList.remove('offen');b.setAttribute('aria-expanded','false')}});}
+  // Diashow
+  document.querySelectorAll('.diashow').forEach(function(d){
+    var spur=d.querySelector('.spur'), n=spur.children.length, i=0, t;
+    function zeige(k){i=(k+n)%n; spur.style.transform='translateX('+(-100*i)+'%)';}
+    function auto(){clearInterval(t); t=setInterval(function(){zeige(i+1)},4000);}
+    d.querySelector('.weiter').addEventListener('click',function(){zeige(i+1);auto()});
+    d.querySelector('.zurueck').addEventListener('click',function(){zeige(i-1);auto()});
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) auto();
+  });
+  // Karte erst nach Klick laden
+  document.querySelectorAll('.karte .laden').forEach(function(btn){
+    btn.addEventListener('click',function(){var f=document.createElement('iframe');f.src=btn.dataset.karte;f.title='Karte: UCL-Motorrad, Bergheimer Str. 26, Markdorf';f.loading='lazy';btn.parentNode.appendChild(f);btn.remove();});
+  });
+  // Kontaktformular (Netlify Forms)
+  var form=document.querySelector('form.formular');
+  if(form){form.addEventListener('submit',function(e){e.preventDefault();
+    var ok=form.querySelector('.meldung.ok'), err=form.querySelector('.meldung.fehler');
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()})
+      .then(function(r){if(!r.ok)throw 0; form.reset(); err.hidden=true; ok.hidden=false;})
+      .catch(function(){ok.hidden=true; err.hidden=false;});
+  });}
+})();
+</script>
+</body>
+</html>

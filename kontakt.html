@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kontakt | UCL Motorrad | Markdorf</title>
+<meta name="description" content="Kontaktinformationen">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="spalte">
+    <div class="titel">
+      <p class="t1"><a href="index.html">UCL Motorrad</a></p>
+      <p class="t2">Die Motorradwerkstatt für alle Krafträder  aller Marken</p>
+    </div>
+    <nav class="menu" aria-label="Hauptmenü"><ul><li><a href="index.html">START</a></li><li class="aktiv"><a href="kontakt.html">KONTAKT</a></li><li><a href="wartung.html">WARTUNG</a></li><li><a href="fahrzeuge.html">FAHRZEUGE</a></li><li><a href="zubehoer.html">ZUBEHÖR</a></li><li><a href="reparaturen.html">REPARATUREN</a></li><li><a href="standort.html">STANDORT</a></li></ul></nav>
+    <button class="burger" type="button" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobilmenue" id="mobilmenue">
+  <ul><li><a href="index.html">START</a></li><li class="aktiv"><a href="kontakt.html">KONTAKT</a></li><li><a href="wartung.html">WARTUNG</a></li><li><a href="fahrzeuge.html">FAHRZEUGE</a></li><li><a href="zubehoer.html">ZUBEHÖR</a></li><li><a href="reparaturen.html">REPARATUREN</a></li><li><a href="standort.html">STANDORT</a></li></ul>
+  <button class="zu" type="button" aria-label="Menü schließen">×</button>
+</div>
+<main>
+  <div class="spalte seite">
+<div class="buehne" style="height:320px">
+  <h2 class="abs cg24" style="--x:10px;--y:29px;--w:904px">KONTAKT</h2>
+  <div class="abs linie" style="--x:10px;--y:66px;--w:960px"></div>
+  <div class="abs rt" style="--x:7px;--y:116px;--w:325px">
+    <p style="font-size:14px;line-height:normal">Bergheimer Str. 26<br>88677 Markdorf<br><a href="mailto:info@ucl-motorrad.de">info@ucl-motorrad.de</a></p>
+    <p class="t14">Tel.: +49 (0)179 525 1708</p>
+  </div>
+  <form class="abs h formular" style="--x:332px;--y:101px;--w:649px;--h:199px" name="kontakt" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="kontakt">
+    <p class="verstecken"><label>Nicht ausfüllen: <input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+    <input type="text" name="name" placeholder="Name" aria-label="Name" required style="left:11px;top:16px;width:305px;height:30px">
+    <input type="email" name="email" placeholder="E-Mail-Adresse" aria-label="E-Mail-Adresse" required style="left:11px;top:52px;width:305px;height:30px">
+    <input type="text" name="betreff" placeholder="Betreff" aria-label="Betreff" style="left:11px;top:89px;width:305px;height:30px">
+    <textarea name="nachricht" placeholder="Nachricht" aria-label="Nachricht" required style="left:323px;top:16px;width:310px;height:103px"></textarea>
+    <button type="submit" style="left:490px;top:124px;width:142px;height:30px">Absenden</button>
+    <p class="meldung ok abs" hidden style="--x:11px;--y:161px;--w:621px">Danke für die Nachricht! Wir melden uns umgehend bei Dir.</p>
+    <p class="meldung fehler abs" hidden style="--x:11px;--y:161px;--w:621px;font-size:16px">Die Nachricht konnte nicht gesendet werden. Bitte ruf an oder schreib eine E-Mail.</p>
+  </form>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="spalte">
+    <a class="f1" style="left:14px" href="cookies.html">Cookies</a>
+    <a class="f1" style="left:76px" href="impressum.html">Impressum</a>
+    <a class="f1" style="left:159px" href="datenschutz.html">Datenschutz</a>
+    <p class="copy">© 2023 UCL Motorrad</p>
+  </div>
+</footer>
+<script>
+(function(){
+  // Mobiles Menü
+  var b=document.querySelector('.burger'), m=document.getElementById('mobilmenue');
+  if(b&&m){b.addEventListener('click',function(){m.classList.add('offen');b.setAttribute('aria-expanded','true')});
+    m.addEventListener('click',function(e){if(e.target===m||e.target.classList.contains('zu')){m.classList.remove('offen');b.setAttribute('aria-expanded','false')}});}
+  // Diashow
+  document.querySelectorAll('.diashow').forEach(function(d){
+    var spur=d.querySelector('.spur'), n=spur.children.length, i=0, t;
+    function zeige(k){i=(k+n)%n; spur.style.transform='translateX('+(-100*i)+'%)';}
+    function auto(){clearInterval(t); t=setInterval(function(){zeige(i+1)},4000);}
+    d.querySelector('.weiter').addEventListener('click',function(){zeige(i+1);auto()});
+    d.querySelector('.zurueck').addEventListener('click',function(){zeige(i-1);auto()});
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) auto();
+  });
+  // Karte erst nach Klick laden
+  document.querySelectorAll('.karte .laden').forEach(function(btn){
+    btn.addEventListener('click',function(){var f=document.createElement('iframe');f.src=btn.dataset.karte;f.title='Karte: UCL-Motorrad, Bergheimer Str. 26, Markdorf';f.loading='lazy';btn.parentNode.appendChild(f);btn.remove();});
+  });
+  // Kontaktformular (Netlify Forms)
+  var form=document.querySelector('form.formular');
+  if(form){form.addEventListener('submit',function(e){e.preventDefault();
+    var ok=form.querySelector('.meldung.ok'), err=form.querySelector('.meldung.fehler');
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()})
+      .then(function(r){if(!r.ok)throw 0; form.reset(); err.hidden=true; ok.hidden=false;})
+      .catch(function(){ok.hidden=true; err.hidden=false;});
+  });}
+})();
+</script>
+</body>
+</html>
