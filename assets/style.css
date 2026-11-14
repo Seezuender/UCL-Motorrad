@@ -119,7 +119,7 @@ img { display: block; }
 
 /* Karte (wird erst nach Klick geladen) */
 .karte { background: #e5e3df; position: relative; overflow: hidden; }
-.karte iframe { border: 0; width: 100%; height: 100%; display: block; }
+.karte iframe { border: 0; position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .karte .laden {
   position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
   text-align: center; padding: 12px; color: #333; font: 13px/1.35 var(--ta); cursor: pointer; border: 0; width: 100%;
@@ -206,7 +206,7 @@ img { display: block; }
   .vlinie { display: none; }
   .kasten { padding: 10px; }
   .kasten.box-start .karte { height: 240px; margin-top: 16px; }
-  .karte { min-height: 240px; }
+  .karte { min-height: 300px; }
   .ohne-mobil { display: none; }
   .preisliste { display: flex; flex-direction: column; gap: 6px; }
   .preis { position: relative; min-height: 54px; }
