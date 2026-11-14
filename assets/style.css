@@ -1,25 +1,13 @@
-/* UCL Motorrad – 1:1-Nachbau der bisherigen Wix-Seite
-   Desktop: 980 px breite Spalte, Positionen wie im Original.
-   Handy (bis 760 px): gestapelte Ansicht wie die Wix-Mobilversion. */
+/* UCL Motorrad
+   Desktop (ab 761 px): Layout über die gesamte Bildschirmbreite (Block "Desktop: volle Breite" am Ende).
+   Handy (bis 760 px): gestapelte Ansicht wie die Wix-Mobilversion.
+   Die Pixel-Positionen (--x/--y/--w/--h) stammen aus dem 1:1-Nachbau und werden in beiden Ansichten überschrieben. */
 
-/* Überschriftenschrift: Copperplate Gothic Bold (wie im Original), sonst Cinzel als freie Ersatzschrift */
+/* Überschriftenschrift: Copperplate CC Bold (freie Copperplate-Gothic-Neuauflage, SIL Open Font License 1.1,
+   Lizenztext in copperplate-cc-LIZENZ.txt), mit Kapitälchen auf den Kleinbuchstaben.
+   Die Schrift wird mitgeliefert, damit Überschriften auf Rechner und Handy gleich aussehen. */
 @font-face {
   font-family: "UCL Copperplate";
-  src: local("Copperplate Gothic Bold"), local("CopperplateGothic-Bold"), local("Copperplate Bold"), local("Copperplate-Bold");
-  font-weight: 400;
-}
-@font-face {
-  font-family: "UCL Copperplate Ersatz";
-  src: url("cinzel-latin-700-normal.woff2") format("woff2");
-  font-weight: 400;
-  size-adjust: 102%;
-  font-display: swap;
-}
-
-/* Handy-Ansicht: mitgelieferte Copperplate CC Bold mit Kapitälchen (SIL Open Font License 1.1,
-   Lizenztext in copperplate-cc-LIZENZ.txt), damit die Überschriften dort wie am Rechner aussehen */
-@font-face {
-  font-family: "UCL Copperplate Web";
   src: url("copperplate-cc-bold-kapitaelchen.woff2") format("woff2");
   font-weight: 400;
   font-display: swap;
@@ -28,7 +16,7 @@
 :root {
   --gelb: #F5D000;
   --box: #353535;
-  --cg: "UCL Copperplate", "UCL Copperplate Ersatz", "Copperplate Gothic Bold", Copperplate, serif;
+  --cg: "UCL Copperplate", "Copperplate Gothic Bold", Copperplate, serif;
   --ta: Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -60,10 +48,6 @@ img { display: block; }
 .spalte { width: 980px; margin: 0 auto; position: relative; }
 .site-header { height: 164px; }
 .site-header .spalte { height: 164px; background: #000; }
-@media (min-width: 980px) {
-  .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; }
-  main { padding-top: 164px; }
-}
 .titel { position: absolute; left: 10px; top: 22px; width: 790px; }
 .titel a { text-decoration: none; color: var(--gelb); }
 .titel .t1 { font-family: var(--cg); font-size: 43px; line-height: 47.3px; color: var(--gelb); }
@@ -195,8 +179,6 @@ img { display: block; }
 /* ---------- Handy-Ansicht ---------- */
 @media (max-width: 760px) {
   body { font-size: 14px; }
-  :root { --cg: "UCL Copperplate Web", "Copperplate Gothic Bold", Copperplate, serif; }
-  .diashow button { display: none; }
   .spalte { width: auto; }
   .site-header .spalte { height: auto; min-height: 112px; padding: 25px 80px 12px 20px; }
   .site-header { height: auto; }
@@ -248,4 +230,177 @@ img { display: block; }
   .fliess { padding: 25px 0 20px; }
   .site-footer .spalte { height: auto; padding: 10px 20px; }
   .site-footer .f1, .site-footer .copy { position: static; display: block; margin: 4px 0; }
+}
+
+/* ---------- Desktop: volle Breite ---------- */
+@media (min-width: 761px) {
+  :root { --rand: clamp(24px, 3.5vw, 56px); --inhalt: 1240px; --pad: max(var(--rand), calc(50% - var(--inhalt) / 2)); }
+  body { font-size: 15px; }
+  .spalte { width: auto; }
+
+  /* Schlanke Kopfzeile: Schriftzug links, Menü rechts */
+  .site-header { position: sticky; top: 0; z-index: 50; height: auto; background: #000; border-bottom: 1px solid #2c2c2c; }
+  .site-header .spalte {
+    height: auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 32px;
+    padding: 12px var(--pad);
+  }
+  .titel { position: static; width: auto; }
+  .titel .t1 { font-size: 30px; line-height: 34px; }
+  .titel .t2 { font-size: 12px; line-height: 16px; white-space: normal; }
+  .start .titel .t2 { display: none; }
+  .menu { position: static; width: auto; height: auto; }
+  .menu ul { height: auto; background: none; box-shadow: none; border-radius: 0; gap: 2px; }
+  .menu ul::before, .menu li::before { display: none; }
+  .menu li, .menu li:hover, .menu li.aktiv { width: auto; height: auto; background: none; }
+  .menu a { height: auto; line-height: 18px; padding: 12px 12px 9px; font-size: 13px; letter-spacing: .5px; border-bottom: 3px solid transparent; }
+  .menu li:hover a { color: var(--gelb); }
+  .menu li.aktiv a { color: var(--gelb); border-bottom-color: var(--gelb); }
+  .menu a:focus-visible, .neu a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+  /* Inhalt: 12-Spalten-Raster statt fester Pixelpositionen */
+  .buehne {
+    height: auto !important; padding: 36px var(--pad) 48px;
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; row-gap: 18px; align-items: start;
+  }
+  .buehne > * { grid-column: 1 / -1; }
+  .abs, .abs.h { position: relative; left: auto; top: auto; width: auto; height: auto; }
+  .t14 p, .t14 li, p.t14 { font-size: 15px; line-height: 21px; }
+  .t16 p, p.t16 { font-size: 17px; line-height: 23px; }
+  .cg14 { font-size: 15px; line-height: 20px; }
+  .rt p { max-width: 1100px; }
+  .vlinie, .ohne-mobil { display: none; }
+  .kasten { padding: 18px; }
+  .mk { background: var(--box); border-radius: 4px; padding: 14px 18px; }
+
+  /* Startseite */
+  .diashow {
+    margin: -28px calc(-1 * var(--rand)) 0; height: auto; aspect-ratio: 980 / 330; max-height: 620px;
+  }
+  .diashow .spur { position: absolute; inset: 0; height: auto; }
+  .diashow .zurueck { left: var(--rand); }
+  .diashow .weiter { right: var(--rand); }
+  .buehne > .box-start { grid-column: 1 / 5; align-self: stretch; }
+  .box-start .karte { height: 260px; margin-top: 18px; }
+  .buehne > .ueber { grid-column: 5 / 9; }
+  .buehne > .dienste { grid-column: 9 / 13; align-self: stretch; border-left: 2px solid var(--gelb); padding-left: 32px; }
+  .social { justify-content: flex-end; }
+
+  /* Kontakt und Standort */
+  .buehne > .adresse { grid-column: 1 / 5; }
+  .buehne > .formular { grid-column: 5 / 13; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 10px; }
+  .formular input, .formular textarea, .formular button { position: static; width: auto !important; height: 38px !important; }
+  .formular [name="name"] { grid-area: 1 / 1; }
+  .formular [name="email"] { grid-area: 2 / 1; }
+  .formular [name="betreff"] { grid-area: 3 / 1; }
+  .formular textarea { grid-area: 1 / 2 / 4 / 3; height: auto !important; }
+  .formular button { grid-area: 4 / 2; justify-self: end; width: 160px !important; }
+  .formular .meldung { grid-column: 1 / -1; }
+  .buehne > .karte { grid-column: 5 / 13; height: clamp(420px, 36vw, 640px); }
+
+  /* Wartung */
+  .bildrahmen { aspect-ratio: 960 / 244; max-height: 440px; }
+  .preisliste { columns: 2; column-gap: 12px; }
+  .preis { min-height: 54px; margin-bottom: 6px; break-inside: avoid; }
+  .preis .name { position: static; width: auto; padding: 14px 150px 14px 14px; font-size: 15px; line-height: 21px; }
+  .preis .betrag { left: auto; right: 12px; top: 14px; }
+
+  /* Fahrzeuge und Zubehör */
+  .buehne > .knopf-ka { width: 481px; height: 85px; justify-self: center; margin: 6px 0 14px; }
+  .buehne > .logo { grid-column: span 6; width: auto; max-width: var(--w); height: auto; align-self: center; margin: 8px 0; }
+  .logo img, .logo svg { width: 100%; height: auto; }
+
+  /* Rechtstexte */
+  .buehne.fliess { padding: 36px var(--pad) 48px; row-gap: 0; }
+  .fliess .kopf, .fliess .linie { margin-left: 0; margin-right: 0; width: auto; }
+  .fliess .linie { margin-top: 13.6px; }
+  .fliess .rt { margin: 16px 0 0 !important; width: auto !important; max-width: 900px !important; }
+
+  /* Fußzeile */
+  .site-footer .spalte { height: auto; padding: 14px var(--pad); display: flex; flex-wrap: wrap; gap: 6px 26px; }
+  .site-footer .f1, .site-footer .copy { position: static; }
+  .site-footer .copy { flex-basis: 100%; }
+}
+@media (min-width: 761px) and (max-width: 1099px) {
+  .buehne > .box-start { grid-column: 1 / -1; }
+  .buehne > .ueber { grid-column: 1 / 7; }
+  .buehne > .dienste { grid-column: 7 / 13; }
+}
+@media (min-width: 1200px) {
+  .buehne > .logo { grid-column: span 3; }
+}
+/* Auf sehr breiten Bildschirmen alles etwas größer darstellen */
+@media (min-width: 1600px) { body { zoom: 1.12; } }
+@media (min-width: 1900px) { body { zoom: 1.25; } }
+@media (min-width: 2500px) { body { zoom: 1.5; } }
+
+/* ---------- Neue Startseite ---------- */
+/* Aufbau: Bänder über die ganze Bildschirmbreite, Inhalt in einer mittigen Spalte (--inhalt), linksbündig. */
+.neu { --grau: #c9c6ba; --flaeche: #1d1d1b; font-size: 16px; line-height: 1.55; }
+.neu .innen { padding: 36px 20px; }
+.neu h2 { font-family: var(--cg); color: var(--gelb); font-size: 24px; line-height: 1.15; margin-bottom: 14px; text-wrap: balance; }
+.neu p + p { margin-top: 10px; }
+.neu a { color: #fff; }
+.band { background: rgba(0, 0, 0, .78); }
+.band.dunkel { background: var(--flaeche); }
+
+.hero { position: relative; background: #000; overflow: hidden; }
+.hero img { width: 100%; height: 210px; object-fit: cover; }
+.hero-text { padding: 22px 20px 26px; }
+.hero h1 { font-family: var(--cg); color: var(--gelb); font-size: 27px; line-height: 1.12; text-wrap: balance; }
+.hero p { margin-top: 10px; color: #fff; }
+.knoepfe { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.knopf {
+  display: inline-block; padding: 12px 18px; border-radius: 0 10px; background: var(--gelb); color: #000 !important;
+  font-weight: bold; text-decoration: none; border: 2px solid var(--gelb);
+}
+.knopf.hell { background: rgba(0, 0, 0, .55); color: #fff !important; border-color: #fff; }
+.knopf:hover { background: #fff; border-color: #fff; color: #000 !important; }
+.warnband { height: 12px; background: repeating-linear-gradient(-45deg, var(--gelb) 0 16px, #000 16px 32px); }
+
+.info { display: grid; gap: 26px; }
+.info h2 { font-size: 20px; margin-bottom: 8px; }
+.info .gross a { font-family: var(--cg); font-size: 22px; color: #fff; text-decoration: none; white-space: nowrap; }
+.info .gross a:hover { color: var(--gelb); }
+.aktuelles { border: 2px solid var(--gelb); border-radius: 0 12px; padding: 16px 18px; }
+.aktuelles ul { list-style: none; padding: 0; margin-top: 8px; font-weight: bold; font-variant-numeric: tabular-nums; }
+
+.leistungen { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr; column-gap: 40px; }
+.leistungen li { padding: 13px 0 13px 26px; border-bottom: 1px solid #3a3a36; position: relative; font-size: 17px; }
+.leistungen li::before { content: ""; position: absolute; left: 2px; top: 20px; width: 12px; height: 12px; background: var(--gelb); border-radius: 0 4px; }
+.leistungen span { display: block; color: var(--grau); font-size: 14px; }
+.weiter { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 22px; }
+.weiter a { color: var(--gelb); font-family: var(--cg); font-size: 15px; }
+
+.ueber-mich { display: grid; gap: 24px; }
+.ueber-mich .foto img { width: 100%; height: 200px; object-fit: cover; border-radius: 0 16px; }
+.ueber-mich .gruss { margin-top: 18px; color: var(--gelb); font-weight: bold; }
+
+.anfahrt { display: grid; gap: 22px; }
+.neu .anfahrt .social { margin-top: 18px; justify-content: flex-start; }
+.anfahrt .karte { height: 260px; }
+
+@media (min-width: 761px) {
+  .neu { font-size: 17px; }
+  .neu .innen { padding: 56px var(--pad); }
+  .neu h2 { font-size: 30px; margin-bottom: 20px; }
+  .hero { min-height: 500px; display: flex; align-items: flex-end; }
+  .hero img { position: absolute; inset: 0; height: 100%; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.88) 0, rgba(0,0,0,.62) 42%, rgba(0,0,0,.08) 78%), linear-gradient(0deg, rgba(0,0,0,.55), rgba(0,0,0,0) 45%); }
+  .hero-text { position: relative; z-index: 1; width: 100%; padding: 80px var(--pad) 54px; }
+  .hero h1 { font-size: clamp(36px, 3.7vw, 52px); max-width: 15em; }
+  .hero p { font-size: 20px; max-width: 34em; margin-top: 16px; }
+  .knoepfe { margin-top: 26px; gap: 14px; }
+  .knopf { padding: 14px 24px; font-size: 17px; }
+  .info { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 40px; align-items: start; }
+  .neu .innen.info { padding-top: 44px; padding-bottom: 44px; }
+  .leistungen { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ueber-mich { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px; align-items: center; }
+  .ueber-mich .foto img { height: 100%; min-height: 420px; }
+  .ueber-mich .text p { max-width: 36em; }
+  .anfahrt { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 40px; }
+  .anfahrt .karte { height: 380px; }
+}
+@media (min-width: 1100px) {
+  .info { grid-template-columns: 1fr 1.25fr 1fr 1.35fr; }
+  .leistungen { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
