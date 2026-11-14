@@ -66,7 +66,7 @@
   });
   // Karte erst nach Klick laden
   document.querySelectorAll('.karte .laden').forEach(function(btn){
-    btn.addEventListener('click',function(){var f=document.createElement('iframe');f.src=btn.dataset.karte;f.title='Karte: UCL-Motorrad, Bergheimer Str. 26, Markdorf';f.loading='lazy';btn.parentNode.appendChild(f);btn.remove();});
+    btn.addEventListener('click',function(){var f=document.createElement('iframe');f.src=btn.dataset.karte;f.title='Karte: UCL Motorrad, Bergheimer Str. 26, Markdorf';f.loading='lazy';btn.parentNode.appendChild(f);btn.remove();});
   });
   // Kontaktformular (Netlify Forms)
   var form=document.querySelector('form.formular');
