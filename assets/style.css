@@ -16,6 +16,15 @@
   font-display: swap;
 }
 
+/* Handy-Ansicht: mitgelieferte Copperplate CC Bold mit Kapitälchen (SIL Open Font License 1.1,
+   Lizenztext in copperplate-cc-LIZENZ.txt), damit die Überschriften dort wie am Rechner aussehen */
+@font-face {
+  font-family: "UCL Copperplate Web";
+  src: url("copperplate-cc-bold-kapitaelchen.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   --gelb: #F5D000;
   --box: #353535;
@@ -186,6 +195,8 @@ img { display: block; }
 /* ---------- Handy-Ansicht ---------- */
 @media (max-width: 760px) {
   body { font-size: 14px; }
+  :root { --cg: "UCL Copperplate Web", "Copperplate Gothic Bold", Copperplate, serif; }
+  .diashow button { display: none; }
   .spalte { width: auto; }
   .site-header .spalte { height: auto; min-height: 112px; padding: 25px 80px 12px 20px; }
   .site-header { height: auto; }

@@ -108,7 +108,8 @@
     function auto(){clearInterval(t); t=setInterval(function(){zeige(i+1)},4000);}
     d.querySelector('.weiter').addEventListener('click',function(){zeige(i+1);auto()});
     d.querySelector('.zurueck').addEventListener('click',function(){zeige(i-1);auto()});
-    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) auto();
+    // In der Handy-Ansicht bleibt das Motorbild fest stehen
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches && !window.matchMedia('(max-width: 760px)').matches) auto();
   });
   // Karte erst nach Klick laden
   document.querySelectorAll('.karte .laden').forEach(function(btn){
