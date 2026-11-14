@@ -220,7 +220,7 @@ img { display: block; }
   .preis .name { position: static; padding: 12px 140px 12px 12px; width: auto; }
   .preis .betrag { left: auto; right: 10px; top: 12px; }
   .bildrahmen { aspect-ratio: 960 / 244; }
-  .knopf-ka { height: 70px; position: relative; }
+  .abs.h.knopf-ka { height: 70px; }
   .knopf-ka span { left: 18px; top: 22px; font-size: 18px; letter-spacing: 3px; }
   .knopf-ka svg { left: auto; right: 14px; top: 18px; width: 32px; height: 32px; }
   .logo { height: auto !important; }
